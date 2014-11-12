@@ -1,0 +1,5 @@
+4
+t1,phong thuong 1,200000,1
+t2,phong thuong 2,300000,2
+t3,phong thuong 3,200000,1
+t4,phong thuong 4,450000,2
