@@ -72,34 +72,34 @@ namespace DT_KHACHSAN
         }
         public static void timPhong(string dieuKienTenPhong,KHACHSAN ks)
         {
-            ArrayList kq = new ArrayList();
+            string chuoi = "Danh sach phong tim duoc:\n";
+            //tim trong danh sach phong thuong
+            ArrayList kqPhongThuong = new ArrayList();
             foreach (PHONGTHUONG p in ks.dsPhongThuong)
             {
                 if (p.tenPhong.Contains(dieuKienTenPhong) == true)
-                    kq.Add(p);
+                    kqPhongThuong.Add(p);
             }
+            foreach (PHONGTHUONG p in kqPhongThuong)
+            {
+                chuoi += XL_PHONGTHUONG.xuatPhong(p) + '\n';
+            }
+            //tim trong danh sach phong vip
+            ArrayList kqPhongVip = new ArrayList();
             foreach (PHONGVIP p in ks.dsPhongVip)
             {
                 if (p.tenPhong.Contains(dieuKienTenPhong) == true)
-                    kq.Add(p);
+                    kqPhongVip.Add(p);
             }
-            //liet ke ket qua tim kiem
-            string chuoi = string.Empty;
-            if (kq.Count == 0)
+            foreach (PHONGVIP p in kqPhongVip)
+            {
+                chuoi += XL_PHONGVIP.xuatPhong(p) + '\n';
+            }
+
+            
+            if (kqPhongThuong.Count == 0 && kqPhongVip.Count ==0)
             {
                 chuoi = "Khong tim thay ket qua.";
-            }
-            else
-            {
-                chuoi = "Danh sach phong tim duoc:\n";
-                foreach (PHONGTHUONG p in kq)
-                {
-                    chuoi += XL_PHONGTHUONG.xuatPhong(p) + '\n';
-                }
-                foreach (PHONGVIP p in kq)
-                {
-                    chuoi += XL_PHONGVIP.xuatPhong(p) + '\n';
-                }
             }
             Console.WriteLine(chuoi);
         }
@@ -125,20 +125,22 @@ namespace DT_KHACHSAN
         }
         public static bool capNhatPhong(string dkMaPhong,KHACHSAN ks)
         {
-            foreach (PHONGTHUONG p in ks.dsPhongThuong)
+            for (int i = 0; i < ks.dsPhongThuong.Count;i++ )
             {
-                if (p.maPhong == dkMaPhong)
+                PHONGTHUONG pt = (PHONGTHUONG)ks.dsPhongThuong[i];
+                if (pt.maPhong == dkMaPhong)
                 {
-                    XL_PHONGTHUONG.capNhatPhong(p,"Cap nhat thong tin phong: ");
+                    ks.dsPhongThuong[i] = XL_PHONGTHUONG.capNhatPhong(dkMaPhong, "Cap nhat thong tin phong: ");
                     return true;
                 }
             }
-            foreach (PHONGVIP p in ks.dsPhongVip)
+            for (int j = 0; j < ks.dsPhongVip.Count; j++)
             {
-                if (p.maPhong == dkMaPhong)
+                PHONGVIP pv = (PHONGVIP)ks.dsPhongVip[j];
+                if (pv.maPhong == dkMaPhong)
                 {
-                    XL_PHONGVIP.capNhatPhong(p);
-                    return false;
+                    ks.dsPhongVip[j] = XL_PHONGVIP.capNhatPhong(dkMaPhong, "Cap nhat thong tin phong: ");
+                    return true;
                 }
             }
             return false;
@@ -246,11 +248,12 @@ namespace DT_KHACHSAN
         }
         public static bool capNhatKhachThue(string dkCmnd,KHACHSAN ks)
         {
-            foreach (KHACHTHUE k in ks.dsKhachThue)
+            for (int i = 0; i < ks.dsKhachThue.Count; i++) //khong dung foreach duoc vi foreach khong cho gan trong vong lap
             {
+                KHACHTHUE k = (KHACHTHUE)ks.dsKhachThue[i];
                 if (k.cmnd == dkCmnd)
                 {
-                    XL_KHACHTHUE.capNhatKhachThue(k,"Cap nhat thong tin khach thue: ");
+                    ks.dsKhachThue[i] = XL_KHACHTHUE.capNhatKhachThue(dkCmnd, "Cap nhat thong tin khach thue: ");
                     return true;
                 }
             }

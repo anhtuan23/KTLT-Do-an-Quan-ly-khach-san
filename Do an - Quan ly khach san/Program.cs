@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
 using DT_PHONG;
 using DT_KHACHTHUE;
 using DT_KHACHSAN;
@@ -14,6 +15,9 @@ namespace Do_an_KTLT_Quan_ly_khach_san
         static void Main(string[] args)
         {
             KHACHSAN ks = new KHACHSAN();
+            ks.dsKhachThue = new ArrayList();
+            ks.dsPhongThuong = new ArrayList();
+            ks.dsPhongVip = new ArrayList();
             //danh sach chuc nang
             string giaoDien = "-----------------------------------\n";
             giaoDien += "1.Nhap thong tin phong\n";
@@ -39,9 +43,8 @@ namespace Do_an_KTLT_Quan_ly_khach_san
             bool kt = true;
             while (kt)
             {
-                Console.Write(giaoDien);
+                Console.WriteLine(giaoDien);
                 int chon = int.Parse(Console.ReadLine());
-
                 switch (chon)
                 {
                     case 1://them phong
@@ -59,7 +62,7 @@ namespace Do_an_KTLT_Quan_ly_khach_san
                         if (kt3 == true)
                             Console.WriteLine("Cap nhat thanh cong");
                         else
-                            Console.WriteLine("Khong tim thay sach");
+                            Console.WriteLine("Khong tim thay phong");
                         break;
                     case 4://tim kiem phong
                         Console.Write("Nhap ten phong can tim: ");

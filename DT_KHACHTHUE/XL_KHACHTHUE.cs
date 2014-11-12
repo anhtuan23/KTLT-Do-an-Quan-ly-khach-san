@@ -57,8 +57,10 @@ namespace DT_KHACHTHUE
         {
             return string.Format("{0}\t{1}\t{2}\t{3}\t{4}\n", k.cmnd, k.hoTen, k.ngayThue.ToShortDateString(), k.ngayTra.ToShortDateString(), k.maPhongThue);
         }
-        public static void capNhatKhachThue(KHACHTHUE k,string ghiChu = "Cap nhat thong tin khach thue: ")
+        public static KHACHTHUE capNhatKhachThue(string cmnd,string ghiChu = "Cap nhat thong tin khach thue: ")
         {
+            KHACHTHUE k = new KHACHTHUE();
+            k.cmnd = cmnd;
             Console.WriteLine(ghiChu);
             Console.Write("Nhap ho ten khach thue: ");
             k.hoTen = Console.ReadLine();
@@ -68,6 +70,7 @@ namespace DT_KHACHTHUE
             k.ngayTra = DateTime.Parse(Console.ReadLine());
             Console.Write("Nhap ma phong thue: ");
             k.maPhongThue = Console.ReadLine();
+            return k;
         }
         public static void luu(StreamWriter boGhi,KHACHTHUE k)
         {

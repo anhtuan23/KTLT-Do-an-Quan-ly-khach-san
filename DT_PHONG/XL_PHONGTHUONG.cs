@@ -47,15 +47,18 @@ namespace DT_PHONG
             kq.soGiuong = int.Parse(Console.ReadLine());
             return kq;
         }
-        public static void capNhatPhong(PHONGTHUONG p,string ghiChu = "Cap nhat thong tin phong: ")
+        public static PHONGTHUONG capNhatPhong(string maPhong,string ghiChu = "Cap nhat thong tin phong: ")
         {
+            PHONGTHUONG p = new PHONGTHUONG();
             Console.WriteLine(ghiChu);
+            p.maPhong = maPhong;
             Console.Write("Nhap ten phong: ");
             p.tenPhong = Console.ReadLine();
             Console.Write("Nhap don gia phong: ");
             p.donGia = int.Parse(Console.ReadLine());
             Console.Write("Nhap so luong giuong: ");
             p.soGiuong = int.Parse(Console.ReadLine());
+            return p;
         }
         public static string xuatPhong(PHONGTHUONG p)
         {
