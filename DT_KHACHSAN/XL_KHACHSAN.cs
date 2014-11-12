@@ -325,9 +325,9 @@ namespace DT_KHACHSAN
         }
         public static void lietKePhongGiaGiamDan(KHACHSAN ks)
         {
-            ArrayList dsPhong = new ArrayList();
+            ArrayList dsPhong = new ArrayList();//danh sach trung gian de gop dsPhongThuong va dsPhongVip
             for (int k = 0; k < ks.dsPhongThuong.Count;k++ )
-            {
+            {//chuyen dsPhongThuong vao dsPhong
                 PHONG tx = new PHONG();
                 PHONGTHUONG t = (PHONGTHUONG)ks.dsPhongThuong[k];
                 tx.loaiPhong = "Phong thuong";
@@ -338,7 +338,7 @@ namespace DT_KHACHSAN
                 dsPhong.Add(tx);
             }
             for (int l = 0; l < ks.dsPhongVip.Count; l++)
-            {
+            {//chuyen dsPhongVip vao dsPhong
                 PHONG vx = new PHONG();
                 PHONGVIP v = (PHONGVIP)ks.dsPhongVip[l];
                 vx.loaiPhong = "Phong VIP";
@@ -349,7 +349,7 @@ namespace DT_KHACHSAN
                 dsPhong.Add(vx);
             }
             for (int i = 0; i < dsPhong.Count; i++)
-            {
+            {//sap xep phong theo thu tu gia giam dan
                 for (int j = i + 1; j < dsPhong.Count; j++)
                 {
                     PHONG b = (PHONG)dsPhong[j];
