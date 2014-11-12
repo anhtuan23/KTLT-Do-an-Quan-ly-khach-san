@@ -23,6 +23,14 @@ namespace DT_KHACHSAN
         //    dsKhachThue = new ArrayList();
         //}
     }
+    public struct PHONG
+    {//loai du lieu lai giua PHONGTHUONG va PHONGVIP, dung trong ham sap xep phong theo gia giam dan
+        public string loaiPhong;
+        public string maPhong;
+        public string tenPhong;
+        public int donGia;
+        public int soGiuong;
+    }
     public class XL_KHACHSAN
     {
         //thanh phan xu ly
@@ -317,30 +325,48 @@ namespace DT_KHACHSAN
         }
         public static void lietKePhongGiaGiamDan(KHACHSAN ks)
         {
+            ArrayList dsPhong = new ArrayList();
+            for (int k = 0; k < ks.dsPhongThuong.Count;k++ )
+            {
+                PHONG tx = new PHONG();
+                PHONGTHUONG t = (PHONGTHUONG)ks.dsPhongThuong[k];
+                tx.loaiPhong = "Phong thuong";
+                tx.maPhong = t.maPhong;
+                tx.tenPhong = t.tenPhong;
+                tx.soGiuong = t.soGiuong;
+                tx.donGia = t.donGia;
+                dsPhong.Add(tx);
+            }
+            for (int l = 0; l < ks.dsPhongVip.Count; l++)
+            {
+                PHONG vx = new PHONG();
+                PHONGVIP v = (PHONGVIP)ks.dsPhongVip[l];
+                vx.loaiPhong = "Phong VIP";
+                vx.maPhong = v.maPhong;
+                vx.tenPhong = v.tenPhong;
+                vx.soGiuong = v.soGiuong;
+                vx.donGia = v.donGia;
+                dsPhong.Add(vx);
+            }
+            for (int i = 0; i < dsPhong.Count; i++)
+            {
+                for (int j = i + 1; j < dsPhong.Count; j++)
+                {
+                    PHONG b = (PHONG)dsPhong[j];
+                    PHONG a = (PHONG)dsPhong[i];
+                    if (a.donGia < b.donGia)
+                    {
+                        PHONG dummy = (PHONG)dsPhong[i];
+                        dsPhong[i] = dsPhong[j];
+                        dsPhong[j] = dummy;
+                    }
+                }
+            }
             string kq = "Danh sach cac phong theo thu tu gia giam dan:\n";
-            List<PHONGVIP> lPhongVip = new List<PHONGVIP>();
-            foreach(PHONGVIP p in ks.dsPhongVip)
+            foreach (PHONG p in dsPhong)
             {
-                lPhongVip.Add(p);
+                kq += string.Format("{0}\t{1}\t{2}\t{3}\t{4}\n", p.loaiPhong, p.maPhong, p.tenPhong, p.donGia, p.soGiuong); 
             }
-            List<PHONGVIP> daXep = lPhongVip.OrderBy(a => -a.donGia).ToList();
-
-            List<PHONGTHUONG> lPhongThuong = new List<PHONGTHUONG>();
-            foreach (PHONGTHUONG p in ks.dsPhongThuong)
-            {
-                lPhongThuong.Add(p);
-            }
-            List<PHONGTHUONG> daXep2 = lPhongThuong.OrderBy(a => -a.donGia).ToList();
-          
-            foreach(PHONGVIP p in daXep)
-            {
-                kq += XL_PHONGVIP.xuatPhong(p) + "\n";
-            }
-            foreach (PHONGTHUONG p in daXep2)
-            {
-                kq += XL_PHONGTHUONG.xuatPhong(p) + "\n";
-            }
-
             Console.WriteLine(kq);
         }
         public static double doanhThuTrongNgay(DateTime ngay,KHACHSAN ks)
