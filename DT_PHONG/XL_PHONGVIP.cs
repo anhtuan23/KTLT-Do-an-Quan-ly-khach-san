@@ -25,10 +25,10 @@ namespace DT_PHONG
         public PHONGVIP(string chuoi)
         {
             string[] thongTin = chuoi.Split(',');
-            this.maPhong = thongTin[1];
-            this.tenPhong = thongTin[2];
-            this.donGia = int.Parse(thongTin[3]);
-            this.soGiuong = int.Parse(thongTin[4]);
+            this.maPhong = thongTin[0];
+            this.tenPhong = thongTin[1];
+            this.donGia = int.Parse(thongTin[2]);
+            this.soGiuong = int.Parse(thongTin[3]);
         }
     }
     public class XL_PHONGVIP
@@ -63,7 +63,7 @@ namespace DT_PHONG
         }
         public static void luu(StreamWriter boGhi,PHONGVIP p)
         {
-            boGhi.WriteLine(string.Format("v,{0},{1},{2},{3}", p.maPhong, p.tenPhong, p.donGia, p.soGiuong));
+            boGhi.WriteLine(string.Format("{0},{1},{2},{3}", p.maPhong, p.tenPhong, p.donGia, p.soGiuong));
         }
         public static double donGiaNgay(DateTime ngay, ArrayList dsKhachThue,PHONGVIP p)
         {

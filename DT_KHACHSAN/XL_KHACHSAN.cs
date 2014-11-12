@@ -13,7 +13,8 @@ namespace DT_KHACHSAN
     public struct KHACHSAN
     {
         public string tenKhachSan;
-        public ArrayList dsPhong;
+        public ArrayList dsPhongThuong;
+        public ArrayList dsPhongVip;
         public ArrayList dsKhachThue;
         //public KHACHSAN()
         //{
@@ -35,13 +36,13 @@ namespace DT_KHACHSAN
             {
                 PHONGTHUONG p = new PHONGTHUONG();
                 p = XL_PHONGTHUONG.nhapPhong("Nhap thong tin phong thuong");
-                ks.dsPhong.Add(p);
+                ks.dsPhongThuong.Add(p);
             }
             else if (loaiPhong == "v")
             {
                 PHONGVIP p = new PHONGVIP();
                 p = XL_PHONGVIP.nhapPhong("Nhap thong tin phong VIP");
-                ks.dsPhong.Add(p);
+                ks.dsPhongVip.Add(p);
             }
             else
             {
@@ -51,11 +52,11 @@ namespace DT_KHACHSAN
         public static void lietKePhong(KHACHSAN ks)
         {
             string kq = "Danh sach cac phong trong khach san:\n";
-            foreach (PHONGTHUONG p in ks.dsPhong)
+            foreach (PHONGTHUONG p in ks.dsPhongThuong)
             {
                 kq += XL_PHONGTHUONG.xuatPhong(p) + '\n';
             }
-            foreach (PHONGVIP p in ks.dsPhong)
+            foreach (PHONGVIP p in ks.dsPhongVip)
             {
                 kq += XL_PHONGVIP.xuatPhong(p) + '\n';
             }
@@ -64,12 +65,12 @@ namespace DT_KHACHSAN
         public static void timPhong(string dieuKienTenPhong,KHACHSAN ks)
         {
             ArrayList kq = new ArrayList();
-            foreach (PHONGTHUONG p in ks.dsPhong)
+            foreach (PHONGTHUONG p in ks.dsPhongThuong)
             {
                 if (p.tenPhong.Contains(dieuKienTenPhong) == true)
                     kq.Add(p);
             }
-            foreach (PHONGVIP p in ks.dsPhong)
+            foreach (PHONGVIP p in ks.dsPhongVip)
             {
                 if (p.tenPhong.Contains(dieuKienTenPhong) == true)
                     kq.Add(p);
@@ -96,19 +97,19 @@ namespace DT_KHACHSAN
         }
         public static bool xoaPhong(string dkMaPhong,KHACHSAN ks)
         {
-            foreach (PHONGTHUONG p in ks.dsPhong)
+            foreach (PHONGTHUONG p in ks.dsPhongThuong)
             {
                 if (p.maPhong == dkMaPhong)
                 {
-                    ks.dsPhong.Remove(p);
+                    ks.dsPhongThuong.Remove(p);
                     return true;
                 }
             }
-            foreach (PHONGVIP p in ks.dsPhong)
+            foreach (PHONGVIP p in ks.dsPhongVip)
             {
                 if (p.maPhong == dkMaPhong)
                 {
-                    ks.dsPhong.Remove(p);
+                    ks.dsPhongVip.Remove(p);
                     return true;
                 }
             }
@@ -116,7 +117,7 @@ namespace DT_KHACHSAN
         }
         public static bool capNhatPhong(string dkMaPhong,KHACHSAN ks)
         {
-            foreach (PHONGTHUONG p in ks.dsPhong)
+            foreach (PHONGTHUONG p in ks.dsPhongThuong)
             {
                 if (p.maPhong == dkMaPhong)
                 {
@@ -124,7 +125,7 @@ namespace DT_KHACHSAN
                     return true;
                 }
             }
-            foreach (PHONGVIP p in ks.dsPhong)
+            foreach (PHONGVIP p in ks.dsPhongVip)
             {
                 if (p.maPhong == dkMaPhong)
                 {
@@ -134,43 +135,53 @@ namespace DT_KHACHSAN
             }
             return false;
         }
-        public static void luuDanhSachPhong(string duongDan,KHACHSAN ks)
+        public static void luuDanhSachPhong(string duongDanPhongThuong,string duongDanPhongVip, KHACHSAN ks)
         {
-            StreamWriter boGhi = new StreamWriter(duongDan);
-            boGhi.WriteLine(ks.dsPhong.Count);
-            foreach (PHONGTHUONG p in ks.dsPhong)
+            StreamWriter boGhiThuong = new StreamWriter(duongDanPhongThuong);
+            boGhiThuong.WriteLine(ks.dsPhongThuong.Count);
+            
+            foreach (PHONGTHUONG p in ks.dsPhongThuong)
             {
-                XL_PHONGTHUONG.luu(boGhi,p);
+                XL_PHONGTHUONG.luu(boGhiThuong,p);
             }
-            foreach (PHONGVIP p in ks.dsPhong)
+            StreamWriter boGhiVip = new StreamWriter(duongDanPhongVip);
+            boGhiVip.WriteLine(ks.dsPhongVip.Count);
+            foreach (PHONGVIP p in ks.dsPhongVip)
             {
-                XL_PHONGVIP.luu(boGhi, p);
+                XL_PHONGVIP.luu(boGhiVip, p);
             }
-            boGhi.Close();
+            boGhiThuong.Close();
+            boGhiVip.Close();
         }
-        public static ArrayList docDanhSachPhong(string duongDan,KHACHSAN ks)
+        public static ArrayList docDanhSachPhongThuong(string duongDan,KHACHSAN ks)
         {
             StreamReader boDoc = new StreamReader(duongDan);
             int n = int.Parse(boDoc.ReadLine());
-            ArrayList dsPhong = new ArrayList();
+            ArrayList dsPhongThuong = new ArrayList();
             for (int i = 0; i < n; i++)
             {
                 string docDuoc = boDoc.ReadLine();
-                if(docDuoc[0]=='t')
-                {
-                    PHONGTHUONG p = new PHONGTHUONG(docDuoc);
-                    dsPhong.Add(p);
-                }
-                else
-                {
-                    PHONGVIP p = new PHONGVIP(docDuoc);
-                    dsPhong.Add(p);
-                }
+                PHONGTHUONG p = new PHONGTHUONG(docDuoc);
+                dsPhongThuong.Add(p);
             }
-            //ks.dsPhong = dsPhong;
             boDoc.Close();
-            return dsPhong;
+            return dsPhongThuong;
         }
+        public static ArrayList docDanhSachPhongVip(string duongDan, KHACHSAN ks)
+        {
+            StreamReader boDoc = new StreamReader(duongDan);
+            int n = int.Parse(boDoc.ReadLine());
+            ArrayList dsPhongVip = new ArrayList();
+            for (int i = 0; i < n; i++)
+            {
+                string docDuoc = boDoc.ReadLine();
+                PHONGVIP p = new PHONGVIP(docDuoc);
+                dsPhongVip.Add(p);
+            }
+            boDoc.Close();
+            return dsPhongVip;
+        }
+
 
         //cac chuc nang ve KHACH THUE
         public static void themKhachThue(KHACHSAN ks)
@@ -275,14 +286,14 @@ namespace DT_KHACHSAN
                     phongCoKhach += k.maPhongThue + ',';
                 }
             }
-            foreach(PHONGTHUONG p in ks.dsPhong)
+            foreach(PHONGTHUONG p in ks.dsPhongThuong)
             {
                 if (phongCoKhach.Contains(p.maPhong) == false)
                 {
                     kq += XL_PHONGTHUONG.xuatPhong(p) + '\n';
                 }
             }
-            foreach (PHONGVIP p in ks.dsPhong)
+            foreach (PHONGVIP p in ks.dsPhongVip)
             {
                 if (phongCoKhach.Contains(p.maPhong) == false)
                 {
@@ -294,11 +305,11 @@ namespace DT_KHACHSAN
         public static int tinhTongSoGiuong(KHACHSAN ks)
         {
             int kq = 0;
-            foreach(PHONGTHUONG p in ks.dsPhong)
+            foreach(PHONGTHUONG p in ks.dsPhongThuong)
             {
                 kq += p.soGiuong;
             }
-            foreach (PHONGVIP p in ks.dsPhong)
+            foreach (PHONGVIP p in ks.dsPhongVip)
             {
                 kq += p.soGiuong;
             }
@@ -308,14 +319,14 @@ namespace DT_KHACHSAN
         {
             string kq = "Danh sach cac phong theo thu tu gia giam dan:\n";
             List<PHONGVIP> lPhongVip = new List<PHONGVIP>();
-            foreach(PHONGVIP p in ks.dsPhong)
+            foreach(PHONGVIP p in ks.dsPhongVip)
             {
                 lPhongVip.Add(p);
             }
             List<PHONGVIP> daXep = lPhongVip.OrderBy(a => -a.donGia).ToList();
 
             List<PHONGTHUONG> lPhongThuong = new List<PHONGTHUONG>();
-            foreach (PHONGTHUONG p in ks.dsPhong)
+            foreach (PHONGTHUONG p in ks.dsPhongThuong)
             {
                 lPhongThuong.Add(p);
             }
@@ -343,14 +354,14 @@ namespace DT_KHACHSAN
                     phongCoKhach += k.maPhongThue + ',';
                 }
             }
-            foreach (PHONGTHUONG p in ks.dsPhong)
+            foreach (PHONGTHUONG p in ks.dsPhongThuong)
             {
                 if (phongCoKhach.Contains(p.maPhong) == true)
                 {
                     doanhThu += XL_PHONGTHUONG.donGiaNgay(ngay,ks.dsKhachThue,p);
                 }
             }
-            foreach (PHONGVIP p in ks.dsPhong)
+            foreach (PHONGVIP p in ks.dsPhongVip)
             {
                 if (phongCoKhach.Contains(p.maPhong) == true)
                 {
@@ -379,7 +390,7 @@ namespace DT_KHACHSAN
 
             double kq = 0;
             TimeSpan soNgayThue = k.ngayTra - k.ngayThue;
-            foreach (PHONGTHUONG p in ks.dsPhong)
+            foreach (PHONGTHUONG p in ks.dsPhongThuong)
             {
                 if (p.maPhong == k.maPhongThue)
                 {
@@ -387,7 +398,7 @@ namespace DT_KHACHSAN
                     return kq;
                 }
             }
-            foreach (PHONGVIP p in ks.dsPhong)
+            foreach (PHONGVIP p in ks.dsPhongVip)
             {
                 if (p.maPhong == k.maPhongThue)
                 {

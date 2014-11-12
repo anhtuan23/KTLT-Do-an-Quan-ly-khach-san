@@ -125,17 +125,20 @@ namespace Do_an_KTLT_Quan_ly_khach_san
                             Console.WriteLine(string.Format("So tien phai tra cua khach hang {0} la {1} D", dkCmnd15, thanhTien));
                         }
                         break;
-                    case 16://Save "C:\Users\anh\Google Drive\Learning\ĐH Khoa học Tự nhiên\06.Kỹ thuật lập trình\khach thue.txt"
-                        string duongDanPhong = "C:\\Users\\anh\\Google Drive\\Learning\\ĐH Khoa học Tự nhiên\\06.Kỹ thuật lập trình\\phong.txt";
-                        string duongDanKhach = "C:\\Users\\anh\\Google Drive\\Learning\\ĐH Khoa học Tự nhiên\\06.Kỹ thuật lập trình\\khach thue.txt";
-                        XL_KHACHSAN.luuDanhSachPhong(duongDanPhong,ks);
+                    case 16://Save "C:\Users\anh\Google Drive\Learning\ĐH Khoa học Tự nhiên\06.Kỹ thuật lập trình\Do an - Quan ly khach san\phong thuong.txt"
+                        string duongDanPhongThuong = "C:\\Users\\anh\\Google Drive\\Learning\\ĐH Khoa học Tự nhiên\\06.Kỹ thuật lập trình\\Do an - Quan ly khach san\\phong thuong.txt";
+                        string duongDanPhongVip = "C:\\Users\\anh\\Google Drive\\Learning\\ĐH Khoa học Tự nhiên\\06.Kỹ thuật lập trình\\Do an - Quan ly khach san\\phong vip.txt";
+                        string duongDanKhach = "C:\\Users\\anh\\Google Drive\\Learning\\ĐH Khoa học Tự nhiên\\06.Kỹ thuật lập trình\\Do an - Quan ly khach san\\khach thue.txt";
+                        XL_KHACHSAN.luuDanhSachPhong(duongDanPhongThuong,duongDanPhongVip,ks);
                         XL_KHACHSAN.luuDanhSachKhachThue(duongDanKhach,ks);
                         Console.WriteLine("Da luu");
                         break;
                     case 17://Load
-                        string duongDanPhong14 = "C:\\Users\\anh\\Google Drive\\Learning\\ĐH Khoa học Tự nhiên\\06.Kỹ thuật lập trình\\phong.txt";
-                        string duongDanKhach14 = "C:\\Users\\anh\\Google Drive\\Learning\\ĐH Khoa học Tự nhiên\\06.Kỹ thuật lập trình\\khach thue.txt";
-                        ks.dsPhong = XL_KHACHSAN.docDanhSachPhong(duongDanPhong14,ks);
+                        string duongDanPhongThuong14 = "C:\\Users\\anh\\Google Drive\\Learning\\ĐH Khoa học Tự nhiên\\06.Kỹ thuật lập trình\\Do an - Quan ly khach san\\phong thuong.txt";
+                        string duongDanPhongVip14 = "C:\\Users\\anh\\Google Drive\\Learning\\ĐH Khoa học Tự nhiên\\06.Kỹ thuật lập trình\\Do an - Quan ly khach san\\phong vip.txt";
+                        string duongDanKhach14 = "C:\\Users\\anh\\Google Drive\\Learning\\ĐH Khoa học Tự nhiên\\06.Kỹ thuật lập trình\\Do an - Quan ly khach san\\khach thue.txt";
+                        ks.dsPhongThuong = XL_KHACHSAN.docDanhSachPhongThuong(duongDanPhongThuong14,ks);
+                        ks.dsPhongVip = XL_KHACHSAN.docDanhSachPhongVip(duongDanPhongVip14, ks);
                         ks.dsKhachThue = XL_KHACHSAN.docDanhSachKhachThue(duongDanKhach14,ks);
                         Console.WriteLine("Da load");
                         break;
